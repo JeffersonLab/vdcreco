@@ -1,8 +1,8 @@
 # vdcreco
 
 This is a little experimental project for studying the feasibility and
-performance of a 3-parameter fit algorithm for the Vertical Drift
-Chambers (VDCs) in the Hall A HRS spectrometers.
+performance of a 3-parameter fit algorithm for the hit clusters in
+the the Vertical Drift Chambers (VDCs) of the Hall A HRS spectrometers.
 
 The cluster reconstruction is currently implemented in Python. The `python` subdirectory contains the following scripts:
 
