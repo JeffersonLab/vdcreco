@@ -22,7 +22,7 @@ def fitfunc(x,p0,p1,p2):
 #outfilename = '/zfs/data/apex/RL_u1_cluster_curfit_nopivot.dat'
 infilename = 'gendata.dat'
 outfilename = '/zfs/data/apex/gendata_clusterfit.dat'
-simdata=True
+simdata=False
 try:
     infile = open(infilename, 'r')
 except:
@@ -60,6 +60,9 @@ for line in infile:
     iproj = int(items[3])
     # Plane: 1 or 2
     iplane = int(items[4])
+    # Limit to u1 plane in either spectrometer
+    if iproj != 0 or iplane != 1:
+        continue
     # Number of wires
     npt = int(items[5])
     # We need at least 5 hits to get a meaningful fit. We ignore the pivot
