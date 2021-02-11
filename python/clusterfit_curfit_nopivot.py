@@ -4,8 +4,8 @@ import numpy as np
 from scipy.optimize import curve_fit
 from vdc import *
 
-wire_start = 0.77852
-wire_spacing = -4.2426e-3
+wire_start = -0.77852
+wire_spacing = 4.2426e-3
 nwires = 368
 drift_space = 0.0127 # distance from wires to cathode plane
 
