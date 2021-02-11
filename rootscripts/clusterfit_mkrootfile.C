@@ -19,7 +19,7 @@ using namespace std;
 //   return false;
 // }
 
-void clusterfit_mkrootfile(const char* infilename="clusterfit.dat")
+void clusterfit_mkrootfile(const char* infilename="clusterfit.dat", bool simdata=false)
 {
   ifstream inp, inpt;
   double x,s,t,chi2,dx,tx,ts,tt;
@@ -36,11 +36,13 @@ void clusterfit_mkrootfile(const char* infilename="clusterfit.dat")
     cerr << "Cannot open " << infilename << endl;
     return;
   }
-  inpt.open("truthdata.dat");
-  if(!inpt) {
-    cerr << "Cannot open truthdata.dat" << endl;
-    return;
-  }    
+  if(simdata) {
+    inpt.open("truthdata.dat");
+    if(!inpt) {
+      cerr << "Cannot open truthdata.dat" << endl;
+      return;
+    }
+  }
 
   TString infile(infilename), rootfile(infile);
   Ssiz_t pos = infile.Index(".dat");
@@ -68,11 +70,13 @@ void clusterfit_mkrootfile(const char* infilename="clusterfit.dat")
   tree->Branch("dx", &dx);
   // tree->Branch("y", &py);
   // tree->Branch("sig", &psig);
-  tree->Branch("tx",&tx);
-  tree->Branch("ts",&ts);
-  tree->Branch("tt",&tt);
-  // tree->Branch("ty", &pty);
-  // tree->Branch("tsig", &ptsig);
+  if(simdata) {
+    tree->Branch("tx",&tx);
+    tree->Branch("ts",&ts);
+    tree->Branch("tt",&tt);
+    // tree->Branch("ty", &pty);
+    // tree->Branch("tsig", &ptsig);
+  }
 
   while(1) {
     int iline;
@@ -85,18 +89,20 @@ void clusterfit_mkrootfile(const char* infilename="clusterfit.dat")
     // if( read_array(inp,sig) )
     //   break;
 
-    inpt >> iline >> tx >> ts >> tt;
-    if( !inpt )
-      break;
-    // if( read_array(inpt,ty) )
-    //   break;
-    // if( read_array(inpt,tsig) )
-    //   break;
+    if(simdata) {
+      inpt >> iline >> tx >> ts >> tt;
+      if( !inpt )
+        break;
+      // if( read_array(inpt,ty) )
+      //   break;
+      // if( read_array(inpt,tsig) )
+      //   break;
+    }
     tree->Fill();
   }
 
   inp.close();
-  inpt.close();
+  if(simdata) inpt.close();
   tree->Write();
   f->Close();
 }
