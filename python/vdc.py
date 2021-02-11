@@ -3,7 +3,7 @@ import numpy as np
 drift_velocity = 5e4     # m/s = 50 um/ns
 #relative_uncertainty = 0.05 # 5% relative uncertainty in drift dist
 #time_uncertainty = 0.5e-9  # 0.5 ns absolute TDC time uncertainty
-relative_uncertainty = 0.00
+relative_uncertainty = 0.0025
 time_uncertainty = 1.92e-9 # 4.5 ns FWHM resolution (from VDC paper)
                            # sigma = FWHM/2.355
 # Time-to-distance polynomial coefficients
